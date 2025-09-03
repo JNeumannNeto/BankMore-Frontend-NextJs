@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  bankmore-frontend:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=http://localhost:3000/api
+    depends_on:
+      - bankmore-backend
+    networks:
+      - bankmore-network
+
+  bankmore-backend:
+    image: bankmore-backend:latest
+    ports:
+      - "5001:5001"
+      - "5002:5002"
+      - "5003:5003"
+    networks:
+      - bankmore-network
+
+networks:
+  bankmore-network:
+    driver: bridge
